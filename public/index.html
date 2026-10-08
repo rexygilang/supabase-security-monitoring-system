@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supabase Real-Time Database Security Operations Center (SOC)</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header Bar -->
+  <header class="top-header">
+    <div class="logo-area">
+      <div class="shield-icon pulse-green" id="mainShieldIcon">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+      <div>
+        <h1>Supabase SOC Monitor <span class="badge-v2">REAL-TIME</span></h1>
+        <p class="subtitle">NVIDIA NIM Parallel AI Threat Detector & HMAC-SHA256 Webhook Gateway</p>
+      </div>
+    </div>
+    <div class="system-status-indicator" id="topStatusPill">
+      <span class="status-dot green" id="statusDot"></span>
+      <span id="topStatusText">SYSTEM STATUS: NOMINAL (ALL SAFE)</span>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="dashboard-container">
+    
+    <!-- Top Metric Cards Grid -->
+    <section class="metrics-grid">
+      
+      <!-- Metric Card 1: System Threat Level -->
+      <div class="card metric-card card-safe" id="threatMetricCard">
+        <div class="card-header">
+          <span>THREAT STATUS</span>
+          <i class="fa-solid fa-triangle-exclamation icon-alert" id="threatCardIcon"></i>
+        </div>
+        <div class="card-value" id="threatStatusVal">SAFE</div>
+        <div class="card-footer" id="threatStatusDesc">
+          <i class="fa-solid fa-circle-check"></i> Zero Active Database Mutators
+        </div>
+      </div>
+
+      <!-- Metric Card 2: Webhook HMAC Auth -->
+      <div class="card metric-card">
+        <div class="card-header">
+          <span>HMAC GATEWAY</span>
+          <i class="fa-solid fa-key text-cyan"></i>
+        </div>
+        <div class="card-value text-cyan" id="hmacAuthVal">HMAC-SHA256</div>
+        <div class="card-footer text-muted">
+          <i class="fa-solid fa-lock"></i> Web Crypto API Verified
+        </div>
+      </div>
+
+      <!-- Metric Card 3: AI Inference Latency -->
+      <div class="card metric-card">
+        <div class="card-header">
+          <span>NVIDIA NIM LATENCY</span>
+          <i class="fa-solid fa-bolt text-gold"></i>
+        </div>
+        <div class="card-value text-gold" id="aiLatencyVal">0.618 s</div>
+        <div class="card-footer text-muted">
+          <i class="fa-solid fa-code-branch"></i> asyncio.gather (Parallel)
+        </div>
+      </div>
+
+      <!-- Metric Card 4: Telegram Alert Channel -->
+      <div class="card metric-card">
+        <div class="card-header">
+          <span>TELEGRAM BOT ALERT</span>
+          <i class="fa-paper-plane text-blue"></i>
+        </div>
+        <div class="card-value text-blue" id="telegramStatusVal">ACTIVE</div>
+        <div class="card-footer text-muted">
+          <i class="fa-solid fa-bell"></i> Instant Push Notifications
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Main Workspace Split Grid -->
+    <div class="workspace-grid">
+      
+      <!-- Left Column: Simulation Controls & Client-Side HMAC Calculator -->
+      <div class="panel-column">
+        
+        <!-- Interactive Control Panel -->
+        <div class="card glass-panel">
+          <div class="panel-header">
+            <h3><i class="fa-solid fa-sliders"></i> Security Event Simulator</h3>
+            <span class="badge">INTERACTIVE TEST</span>
+          </div>
+          <div class="panel-body">
+            <label for="payloadSelect">Pilih Payload Ancaman / Log Test:</label>
+            <select id="payloadSelect" class="custom-select">
+              <option value="danger">🚨 DANGER: SQL Injection (DROP TABLE admin_users; --)</option>
+              <option value="safe">✅ SAFE: Standard Query (SELECT * FROM products WHERE category = 5)</option>
+              <option value="xss">⚠️ ATTACK: Malicious XSS (<script>fetch('http://attacker.com')</script>)</option>
+            </select>
+
+            <div class="button-group">
+              <button id="btnTriggerDanger" class="btn btn-danger">
+                <i class="fa-solid fa-skull"></i> Kirim Ancaman (Threat Alert)
+              </button>
+              <button id="btnTriggerSafe" class="btn btn-success">
+                <i class="fa-solid fa-shield-cat"></i> Reset / Normal Traffic
+              </button>
+            </div>
+
+            <hr class="divider">
+
+            <div class="button-group">
+              <button id="btnRunAiAnalysis" class="btn btn-cyan">
+                <i class="fa-solid fa-brain"></i> Jalankan NVIDIA NIM Dual AI
+              </button>
+              <button id="btnSendWebhook" class="btn btn-purple">
+                <i class="fa-solid fa-paper-plane"></i> Kirim Webhook (Client WebCrypto)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Client-Side WebCrypto API HMAC Inspector -->
+        <div class="card glass-panel margin-top">
+          <div class="panel-header">
+            <h3><i class="fa-solid fa-fingerprint"></i> Client-Side Web Crypto API Signature</h3>
+          </div>
+          <div class="panel-body">
+            <div class="code-box">
+              <div class="code-box-header">Calculated x-signature (HMAC-SHA256):</div>
+              <code id="computedHmacSig">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</code>
+            </div>
+            <p class="crypto-note">
+              <i class="fa-solid fa-info-circle"></i> Computed locally in browser using <code>window.crypto.subtle.importKey</code> and <code>window.crypto.subtle.sign</code>.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: AI Predictions & Realtime Feed -->
+      <div class="panel-column">
+        
+        <!-- NVIDIA NIM Dual AI Panel -->
+        <div class="card glass-panel">
+          <div class="panel-header">
+            <h3><i class="fa-solid fa-microchip"></i> NVIDIA NIM Parallel AI Analysis Panel</h3>
+            <span class="badge-ai" id="aiExecModeBadge">asyncio.gather ACTIVE</span>
+          </div>
+          <div class="panel-body">
+            
+            <div class="ai-models-grid">
+              
+              <!-- Random Forest Model Card -->
+              <div class="ai-card" id="rfCard">
+                <div class="ai-card-title">
+                  <i class="fa-solid fa-tree text-green"></i> Model 1: Random Forest Classifier
+                </div>
+                <div class="ai-stat-row">
+                  <span>Score:</span>
+                  <strong id="rfScore">0.05 (LOW)</strong>
+                </div>
+                <div class="progress-bar-bg">
+                  <div class="progress-bar-fill fill-green" id="rfBar" style="width: 5%;"></div>
+                </div>
+                <div class="ai-stat-row margin-top-sm">
+                  <span>Classification:</span>
+                  <span class="status-text green" id="rfClass">SAFE</span>
+                </div>
+                <div class="ai-stat-row">
+                  <span>Latency:</span>
+                  <span class="text-muted" id="rfTime">0.3147 s</span>
+                </div>
+              </div>
+
+              <!-- Support Vector Machine Card -->
+              <div class="ai-card" id="svmCard">
+                <div class="ai-card-title">
+                  <i class="fa-solid fa-chart-line text-blue"></i> Model 2: SVM Anomaly Detector
+                </div>
+                <div class="ai-stat-row">
+                  <span>Score:</span>
+                  <strong id="svmScore">0.08 (LOW)</strong>
+                </div>
+                <div class="progress-bar-bg">
+                  <div class="progress-bar-fill fill-blue" id="svmBar" style="width: 8%;"></div>
+                </div>
+                <div class="ai-stat-row margin-top-sm">
+                  <span>Classification:</span>
+                  <span class="status-text green" id="svmClass">NORMAL_TRAFFIC</span>
+                </div>
+                <div class="ai-stat-row">
+                  <span>Latency:</span>
+                  <span class="text-muted" id="svmTime">0.5140 s</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Total Timing Banner -->
+            <div class="timing-banner">
+              <i class="fa-solid fa-stopwatch text-gold"></i>
+              <span>Total Parallel Execution Time: <strong id="totalParallelTime" class="text-gold">0.6177 Detik</strong> (Minimal Requirement >= 0.6s)</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Real-Time Activity Log Table -->
+        <div class="card glass-panel margin-top">
+          <div class="panel-header">
+            <h3><i class="fa-solid fa-list-check"></i> Security Audit Log Stream</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="audit-table">
+              <thead>
+                <tr>
+                  <th>Waktu</th>
+                  <th>Sumber IP</th>
+                  <th>Event Payload</th>
+                  <th>HMAC Status</th>
+                  <th>AI Consensus</th>
+                </tr>
+              </thead>
+              <tbody id="auditLogTableBody">
+                <tr>
+                  <td>10:42:15</td>
+                  <td>192.168.1.105</td>
+                  <td>SELECT * FROM products</td>
+                  <td><span class="tag tag-success">VERIFIED</span></td>
+                  <td><span class="tag tag-success">SAFE</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Supabase Real-Time Security Monitoring Dashboard | Built with Node.js, Python FastAPI, Web Crypto API & GitHub Actions CI/CD</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

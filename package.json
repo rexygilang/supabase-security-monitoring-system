@@ -1,0 +1,22 @@
+{
+  "name": "supabase-security-monitoring-system",
+  "version": "1.0.0",
+  "description": "Real-time Database Security Operations Center with NVIDIA NIM Dual AI and HMAC-SHA256 Webhooks",
+  "main": "api/webhook.js",
+  "scripts": {
+    "start": "node test_flows.js",
+    "test": "node test_flows.js",
+    "test:ai": "python test_async_ai.py"
+  },
+  "keywords": [
+    "security",
+    "hmac-sha256",
+    "vercel",
+    "supabase",
+    "nvidia-nim",
+    "asyncio",
+    "web-crypto-api"
+  ],
+  "author": "Web Security Engineer",
+  "license": "MIT"
+}

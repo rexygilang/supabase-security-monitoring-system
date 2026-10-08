@@ -1,0 +1,31 @@
+# Environment variables and secrets (CRITICAL - DO NOT COMMIT TO GITHUB)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Node modules & dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+venv/
+env/
+ENV/
+
+# Vercel deployment cache
+.vercel/
+
+# OS and IDE temporary files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log

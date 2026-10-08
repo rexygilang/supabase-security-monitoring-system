@@ -1,0 +1,2 @@
+# Python Dependencies for Vercel Python Serverless Runtime
+# Built-in standard modules used: json, time, asyncio, os, http.server
